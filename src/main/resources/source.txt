@@ -1,0 +1,18 @@
+section .data
+    Vec_1 db 5,-128,-64,-3,-5,-6
+    size db 0
+
+section .text
+_start:
+    ld ecx,[Vec_1]
+	mvi edi,Vec_1+1
+	ldr eax,[edi]
+find_max:
+	cmp eax,[edi]
+	jge skip
+	ldr eax,[edi]
+skip:
+    inc edi
+    loop find_max
+exit:
+    hlt

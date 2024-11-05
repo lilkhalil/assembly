@@ -25,6 +25,6 @@ public class JgeInstructionResolver implements InstructionResolver {
 
         int indirect = labelRegistry.get(label);
 
-        return (0x6 & 0xF) << 28 | (indirect & 0xFFFFF);
+        return (0x6 & 0xF) << 28 | (indirect & 0xFFFFF) << 8;
     }
 }

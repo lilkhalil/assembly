@@ -16,6 +16,6 @@ public class HltInstructionResolver implements InstructionResolver {
 
     @Override
     public int resolve(String instruction) {
-        return (0) << 28;
+        return 0;
     }
 }

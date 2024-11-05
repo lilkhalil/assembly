@@ -25,6 +25,6 @@ public class LoopInstructionResolver implements InstructionResolver {
 
         int indirect = labelRegistry.get(label);
 
-        return (0x8 & 0xF) << 28 | (indirect & 0xFFFFF);
+        return (0x8 & 0xF) << 28 | (indirect & 0xFFFFF) << 8;
     }
 }

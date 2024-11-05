@@ -28,13 +28,13 @@ public class Utils {
 
     /**
      * Путь к файлу исходного кода на ассемблере.
-     * Значение по умолчанию: src/main/resources/source.txt.
+     * Значение по умолчанию: С:/Users/aidar/source.asm.
      */
-    public static final String SOURCE_FILE = properties.getProperty("source.file-name", "src/main/resources/source.txt");
+    public static final String SOURCE_FILE = properties.getProperty("source.file-name", "С:/Users/aidar/source.asm");
 
     /**
-     * Путь к файлу исходного кода на ассемблере.
-     * Значение по умолчанию: src/main/resources/source.txt.
+     * Путь к файлу машинного кода.
+     * Значение по умолчанию: C:/Users/aidar/output.bin.
      */
     public static final String DESTINATION_FILE = properties.getProperty("destination.file-name", "C:/Users/aidar/output.bin");
 

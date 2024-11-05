@@ -1,6 +1,7 @@
 package ru.mirea.lilkhalil.assembler.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.mirea.lilkhalil.assembler.Assembler;
 import ru.mirea.lilkhalil.processor.Processor;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class AssemblerImpl implements Assembler {
 
     private final ProcessorRegistry processorRegistry;
@@ -26,6 +28,7 @@ public class AssemblerImpl implements Assembler {
         resolveLabels(sourceFile);
 
         String sectionName = null;
+        Processor processor = null;
 
         List<String> result = new ArrayList<>();
 
@@ -35,8 +38,11 @@ public class AssemblerImpl implements Assembler {
                     result.add("\n");
                 }
                 sectionName = line.split("\\s+")[1];
+                processor = processorRegistry.get(sectionName);
             } else {
-                Processor processor = processorRegistry.get(sectionName);
+                if (processor == null) {
+                    throw new IllegalArgumentException("Процессор для данной секции кода не найден!");
+                }
                 String processedLine = processor.process(line);
                 if (!processedLine.isEmpty())
                     result.add(processedLine);

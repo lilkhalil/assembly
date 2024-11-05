@@ -33,6 +33,12 @@ public class Utils {
     public static final String SOURCE_FILE = properties.getProperty("source.file-name", "src/main/resources/source.txt");
 
     /**
+     * Путь к файлу исходного кода на ассемблере.
+     * Значение по умолчанию: src/main/resources/source.txt.
+     */
+    public static final String DESTINATION_FILE = properties.getProperty("destination.file-name", "C:/Users/aidar/output.bin");
+
+    /**
      * Смещение данных в оперативной памяти.
      * Значение по умолчанию: 512.
      */

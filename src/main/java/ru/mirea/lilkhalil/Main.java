@@ -7,10 +7,13 @@ import ru.mirea.lilkhalil.assembler.Assembler;
 import ru.mirea.lilkhalil.configuration.AssemblerConfiguration;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+import static ru.mirea.lilkhalil.utils.Utils.DESTINATION_FILE;
 import static ru.mirea.lilkhalil.utils.Utils.SOURCE_FILE;
 
 @Slf4j
@@ -26,7 +29,7 @@ public class Main
 
         String result = assembler.assemble(sourceFile);
 
-        System.out.println(result);
+        writeToFile(result);
     }
 
     private static String parseSourceFile() {
@@ -39,5 +42,14 @@ public class Main
             log.error("Ошибка загрузки файла исходного кода программы", ex);
         }
         return null;
+    }
+
+    private static void writeToFile(String data) {
+        try (FileOutputStream outputStream = new FileOutputStream(DESTINATION_FILE)) {
+            byte[] bytes = data.getBytes(StandardCharsets.UTF_8);
+            outputStream.write(bytes);
+        } catch (IOException ex) {
+            log.error("Ошибка записи файла машинного кода программы", ex);
+        }
     }
 }

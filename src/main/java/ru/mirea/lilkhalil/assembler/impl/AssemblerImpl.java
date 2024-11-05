@@ -7,6 +7,10 @@ import ru.mirea.lilkhalil.processor.Processor;
 import ru.mirea.lilkhalil.registry.LabelRegistry;
 import ru.mirea.lilkhalil.registry.ProcessorRegistry;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class AssemblerImpl implements Assembler {
@@ -23,18 +27,25 @@ public class AssemblerImpl implements Assembler {
 
         String sectionName = null;
 
-        StringBuilder result = new StringBuilder();
+        List<String> result = new ArrayList<>();
 
         for (String line : lines) {
             if (line.startsWith("section")) {
+                if (sectionName != null) {
+                    result.add("\n");
+                }
                 sectionName = line.split("\\s+")[1];
             } else {
                 Processor processor = processorRegistry.get(sectionName);
-                result.append(processor.process(line)).append('\n');
+                String processedLine = processor.process(line);
+                if (!processedLine.isEmpty())
+                    result.add(processedLine);
             }
         }
 
-        return result.toString();
+        return result.stream()
+                .map(line -> line.equals("\n") ? line : line + "\n")
+                .collect(Collectors.joining()).trim();
     }
 
     private void resolveLabels(String sourceFile) {

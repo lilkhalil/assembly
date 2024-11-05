@@ -1,25 +1,21 @@
 package ru.mirea.lilkhalil.processor.impl;
 
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 import ru.mirea.lilkhalil.instruction.InstructionSet;
 import ru.mirea.lilkhalil.instruction.resolver.InstructionResolver;
 import ru.mirea.lilkhalil.processor.Processor;
-import ru.mirea.lilkhalil.registry.LabelRegistry;
 
 @Component
 public class TextProcessor implements Processor {
 
     private int address;
-    private final LabelRegistry labelRegistry;
     private final InstructionSet instructionSet;
     @Getter
     private final String name;
 
-    public TextProcessor(LabelRegistry labelRegistry, InstructionSet instructionSet) {
+    public TextProcessor(InstructionSet instructionSet) {
         this.address = 0;
-        this.labelRegistry = labelRegistry;
         this.instructionSet = instructionSet;
         this.name = ".text";
     }
